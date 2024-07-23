@@ -7,7 +7,7 @@ import bodyParser from 'body-parser';
 const app = express();
 
 app.use(cors({
-  origin: 'http://127.0.0.1:5500', // Allow requests from this origin
+  origin: 'https://ai-assistant-liart-omega.vercel.app', // Allow requests from this origin
   methods: ['GET', 'POST'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
