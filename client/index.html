@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIA</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Multi-Purpose  AIA</h1>
+        <form id="queryForm">
+            <label for="feature">Choose a feature:</label>
+            <select id="feature" name="feature">
+                <option value="textGeneration">Text Generation</option>
+                <option value="textSummarization">Text Summarization</option>
+                <option value="languageTranslation">Language Translation</option>
+            </select>
+            <textarea id="userInput" name="userInput" rows="4" placeholder="Enter your prompt here..."></textarea>
+            <button type="submit">Submit</button>
+        </form>
+        <div id="response">
+            <h2>Response:</h2>
+            <p id="responseText"></p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('queryForm').addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            const feature = document.getElementById('feature').value;
+            const userInput = document.getElementById('userInput').value;
+            const submitButton = document.getElementById('submitButton');
+
+            try {
+                
+                const response = await fetch('http://localhost:2000/api/query', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ feature, input: userInput }),
+                });
+
+                const data = await response.json();
+                document.getElementById('responseText').textContent = data.text;
+            } catch (error) {
+                console.error('Error:', error);
+            } 
+        });
+    </script>
+</body>
+</html>
